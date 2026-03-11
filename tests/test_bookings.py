@@ -46,3 +46,11 @@ def test_partial_update_booking(base_url, auth_token):
     booking_response = requests.patch(f"{base_url}/booking/{first_booking_id}", json={"lastname": "Wolfe"}, headers={"Cookie": f"token={auth_token}"})
     assert booking_response.status_code == 200
     assert "lastname" in booking_response.json()
+
+def test_delete_booking(base_url, auth_token):
+    create_response = requests.post(f"{base_url}/booking", json={"firstname": "Jon", "lastname": "Wolfe", "totalprice": 100, "depositpaid": True, "bookingdates": {"checkin": "2025-01-01", "checkout": "2025-01-05"}, "additionalneeds": "Breakfast"})
+    booking_id = create_response.json()["bookingid"]
+    delete_booking = requests.delete(f"{base_url}/booking/{booking_id}", headers={"Cookie": f"token={auth_token}"})
+    assert delete_booking.status_code == 201
+    check_delete = requests.get(f"{base_url}/booking/{booking_id}", headers={"Cookie": f"token={auth_token}"})
+    assert check_delete.status_code == 404
