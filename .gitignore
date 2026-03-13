@@ -1,1 +1,40 @@
+# Python-specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+venv/
 .env
+.venv/
+ENV/
+
+# Testing / coverage
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+*.pytest_cache
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs / temp files
+*.log
+*.tmp
+*.bak
+.DS_Store   # Mac junk, harmless on Windows but good to ignore
+
+# Project-specific (add if you have these)
+*.egg-info/
+dist/
+build/
