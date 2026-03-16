@@ -21,3 +21,11 @@ class BookingPage():
         self.page.fill(".room-email", email)
         self.page.fill(".room-phone", phone)
 
+    def confirm_booking(self):
+        self.page.click("#doReservation")
+
+    def get_confirmation_message(self):
+        return self.page.inner_text(".card-title")
+
+    def get_booking_dates_text(self):
+        return self.page.inner_text(".text-center")
