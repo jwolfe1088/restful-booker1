@@ -9,7 +9,7 @@ class BookingPage():
 
 
     def navigate_to_booking_url(self):
-        self.page.goto("https://automationintesting.online/reservation/1?checkin=2026-04-15&checkout=2026-04-16")
+        self.page.goto("https://automationintesting.online/reservation/1?checkin=2026-05-15&checkout=2026-05-16")
         # Navigates to specific booking dates to bypass the date selector slider
 
     def click_reserve_now(self):
@@ -25,7 +25,9 @@ class BookingPage():
         self.page.click(".btn-primary")
 
     def get_confirmation_message(self):
-        return self.page.inner_text(".fw-bold")
+        return self.page.get_by_role("heading", name="Booking Confirmed").inner_text()
+        
+
         # Need to fix both selectors 
     def get_booking_dates_text(self):
-        return self.page.inner_text(".text-center")
+        return self.page.inner_text("p.text-center.pt-2 strong")
