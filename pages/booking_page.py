@@ -10,7 +10,7 @@ class BookingPage():
 
     def navigate_to_booking_url(self):
         self.page.goto("https://automationintesting.online/reservation/1?checkin=2026-04-15&checkout=2026-04-16")
-# Navigates to specific booking dates to bypass the date selector slider
+        # Navigates to specific booking dates to bypass the date selector slider
 
     def click_reserve_now(self):
         self.page.click("#doReservation")
@@ -22,10 +22,10 @@ class BookingPage():
         self.page.fill(".room-phone", phone)
 
     def confirm_booking(self):
-        self.page.click("#doReservation")
+        self.page.click(".btn-primary")
 
     def get_confirmation_message(self):
-        return self.page.inner_text(".card-title")
-
+        return self.page.inner_text(".fw-bold")
+        # Need to fix both selectors 
     def get_booking_dates_text(self):
         return self.page.inner_text(".text-center")
