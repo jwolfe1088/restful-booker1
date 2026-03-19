@@ -8,8 +8,8 @@ class BookingPage():
         self.page.goto(BASE_URL)
 
 
-    def navigate_to_booking_url(self):
-        self.page.goto("https://automationintesting.online/reservation/1?checkin=2026-05-15&checkout=2026-05-16")
+    def navigate_to_booking_url(self, checkin, checkout):
+        self.page.goto(f"https://automationintesting.online/reservation/1?checkin={checkin}&checkout={checkout}")
         # Navigates to specific booking dates to bypass the date selector slider
 
     def click_reserve_now(self):
