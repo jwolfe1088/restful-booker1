@@ -15,4 +15,22 @@ This project acheives end-to-end test automation for a web application. On the A
 
 ## Testing Coverage
 
-- 
+- Full UI user flow, covers room selection, user information input and checkout. Includes dynamic runtime dates to allow for multiple retests. 
+- API authentication tests cover successful authentication, invalid and incomplete credentials. 
+- API tests for the booking function, covering retrieve, create, delete and update/partial update bookings, along with booking not found.
+
+## Project Structure
+```
+restful-booker1/
+├── pages/
+│   ├── booking_page.py
+├── tests/
+│   ├── test_auth.py
+│   ├── test_bookings.py
+│   ├── test_ping.py
+│   └── test_ui.py
+├── conftest.py
+├── pytest.ini
+├── requirements.txt
+└── README.md
+```
