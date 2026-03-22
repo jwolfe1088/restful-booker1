@@ -8,7 +8,7 @@ load_dotenv()
 
 @pytest.fixture(scope="session")
 def base_url():
-    BASE_URL = "https://www.automationintesting.online/"
+    BASE_URL = "https://restful-booker.herokuapp.com/"
     return BASE_URL
 
 @pytest.fixture(scope="session")
@@ -21,3 +21,14 @@ def auth_token(base_url):
 @pytest.fixture()
 def booking_page(page):
     return BookingPage(page)
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+    if rep.when == "call" and rep.failed:
+        page = item.funcargs.get("page")
+        if page:
+            screenshot_path = f"screenshots/{item.name}_{rep.when}.png"
+            page.screenshot(path=screenshot_path)
+            print(f"Screenshot saved: {screenshot_path}")

@@ -38,3 +38,6 @@ coverage.xml
 *.egg-info/
 dist/
 build/
+
+# Reference Material
+* reference_guide.md
