@@ -16,12 +16,14 @@ jobs:
       
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Uninstall pytest-base-url
+        run: pip uninstall pytest-base-url -y
       
       - name: Install Playwright browsers
         run: playwright install --with-deps chromium
       
       - name: Run tests
         env:
-          EMAIL: ${{ secrets.BOOKER_USERNAME }}
-          PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
+          BOOKER_USERNAME: ${{ secrets.BOOKER_USERNAME }}
+          BOOKER_PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
         run: pytest --browser chromium
