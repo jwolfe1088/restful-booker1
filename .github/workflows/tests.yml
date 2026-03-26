@@ -1,0 +1,29 @@
+name: API/UI tests
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Uninstall pytest-base-url
+        run: pip uninstall pytest-base-url -y
+      
+      - name: Install Playwright browsers
+        run: playwright install --with-deps chromium
+      
+      - name: Run tests
+        env:
+          BOOKER_USERNAME: ${{ secrets.BOOKER_USERNAME }}
+          BOOKER_PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
+        run: pytest --browser chromium
