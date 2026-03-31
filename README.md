@@ -1,33 +1,39 @@
-# Restful Booking API + UI Test Suite
+# Restful Booker - Hybrid UI + API Test Suite
 
-An automated testing suite targeting the booking app hosted at https://www.automationintesting.online using Python, Pytest, Playwright and Requests.
+Self-built end-to-end automation suite for the [Restful Booker](https://www.automationintesting.online) demo application using **Python, pytest, Playwright (UI)**, and **requests (API)**.
+
+Built as part of my self-training for **Junior QA Automation Engineer** roles while transitioning from running a small business.
 
 ## About This Project
 
-This project achieves end-to-end test automation for a web application. On the API side, it covers authentication, various booking requests like: get all bookings, update booking, partial update, delete booking, as well as testing booking not found. It also includes a full UI flow from selecting a room, checking out and asserting a specific success message and the exact dates are displayed.
+This suite demonstrates reliable hybrid testing:
+- **API layer**: Authentication, full CRUD on bookings (create, read, update, partial update, delete), negative cases (not found, invalid credentials), and health checks
+- **UI layer**: Complete user flow — room selection with dynamic dates, guest information input, checkout, and validation of success message and displayed dates
+- Tests are designed to be re-runnable without manual data cleanup
 
 ## Technologies Used
 
 - **Python 3.12**
-- **Pytest** Testing Framework
-- **Playwright** Browser Automation
-- **Requests** HTTP API Testing
+- **pytest** (test framework + fixtures)
+- **Playwright** (browser automation)
+- **requests** (API testing)
+- **GitHub Actions** (CI/CD)
 
-## Testing Coverage
+## Key Features & What I Learned
 
-- Full UI user flow, covers room selection, user information input and checkout. Includes dynamic runtime dates to allow for multiple retests. 
-- API authentication tests cover successful authentication, invalid and incomplete credentials. 
-- API tests for the booking function, covering retrieve, create, delete and update/partial update bookings, along with booking not found.
-
-## CI/CD
-
-This project includes a GitHub Actions workflow that automatically runs the full test suite on every push.
+- **Page Object Model (POM)** for clean separation of page logic and tests
+- Reusable **pytest fixtures** in `conftest.py` to reduce duplication
+- Dynamic test data (runtime dates) for reliable re-execution
+- Integration of UI and API tests in one unified framework
+- Robust locators (e.g., `get_by_placeholder`, `get_by_role`)
+- Automated CI pipeline that runs the full suite on every push
 
 ## Project Structure
 ```
 restful-booker1/
+├── .github/workflows/      # GitHub Actions CI
 ├── pages/
-│   ├── booking_page.py
+│   └── booking_page.py     # POM implementation
 ├── tests/
 │   ├── test_auth.py
 │   ├── test_bookings.py
@@ -36,44 +42,48 @@ restful-booker1/
 ├── conftest.py
 ├── pytest.ini
 ├── requirements.txt
-└── README.md
+├── .env.example
+└── screenshots/            # Failure artifacts
 ```
-## Setup Instructions
 
-### Prerequisites 
+## Setup & Running Tests
 
-1. Clone this repository
-2. Create a virtual environment:
+1. Clone the repository
+2. Create and activate a virtual environment:
 ```bash
-   python -m venv venv
+python -m venv venv
+# Windows: venv\Scripts\activate
+# Mac/Linux: source venv/bin/activate
 ```
-3. Activate the virtual environment:
-   - Windows: `venv\Scripts\activate`
-   - Mac/Linux: `source venv/bin/activate`
-4. Install dependencies
+3. Install dependencies:
 ```bash
-   pip install -r requirements.txt
-   pip uninstall pytest-base-url -y
-   playwright install
+pip install -r requirements.txt
+playwright install
 ```
-5. Create a `.env` file in the root directory with your test credentials:
+4. Create a `.env` file in the root directory:
 ```
 BOOKER_USERNAME=admin
 BOOKER_PASSWORD=password123
 ```
+These are the standard public credentials for the Restful Booker demo app.
 
-## How To Run
-```
-# Run all tests
+5. Run tests:
+```bash
+# All tests
 pytest
 
-# Run specific file
-pytest tests/test_auth.py
-
-# Run with verbose output + stop on first failure
+# Verbose + stop on first failure
 pytest -v -x
-```
-## Design Patterns
 
-- **Page Object Model (POM)** - Each page is represented by a class in the `pages/` directory, separating test logic from page interactions
-- **Fixtures** - Shared setup managed via `conftest.py` to avoid code repetition
+# Specific file
+pytest tests/test_ui.py -v
+```
+
+## CI/CD
+
+GitHub Actions workflow automatically runs the full test suite in headless mode on every push.
+
+## Why This Matters for QA Roles
+
+This project shows I can build maintainable, production-like automation that combines UI and API testing — skills directly applicable to real-world test frameworks.
+
